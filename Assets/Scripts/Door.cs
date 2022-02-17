@@ -36,12 +36,12 @@ public class Door : MonoBehaviour
         }
         else
         {
-            if (rightDoor.transform.localPosition.x <= PosRDoor.x + 1)
+            if (rightDoor.transform.localPosition.x < PosRDoor.x + 1)
             {
                 rightDoor.transform.Translate(MaxDoorTranslate * Time.deltaTime * TranslateSpeed);
             }
 
-            if (leftDoor.transform.localPosition.x >= PosLDoor.x - 1)
+            if (leftDoor.transform.localPosition.x > PosLDoor.x - 1)
             {
                 leftDoor.transform.Translate(-MaxDoorTranslate * Time.deltaTime * TranslateSpeed);
             }
