@@ -21,11 +21,11 @@ public class TeleporterBrain : MonoBehaviour
     {
         if (other.gameObject.transform.position.z > this.transform.position.z)
         {
-            warpPos = new Vector3(otherPortal.position.x, other.gameObject.transform.position.y, otherPortal.position.z - 1);
+            warpPos = new Vector3(otherPortal.position.x, otherPortal.position.y, otherPortal.position.z - 1);
         }
         else
         {
-            warpPos = new Vector3(otherPortal.position.x, other.gameObject.transform.position.y, otherPortal.position.z + 1);
+            warpPos = new Vector3(otherPortal.position.x, otherPortal.position.y, otherPortal.position.z + 1);
         }
         
         if (other.gameObject.CompareTag("Player"))
