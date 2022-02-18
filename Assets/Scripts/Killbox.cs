@@ -8,7 +8,6 @@ public class Killbox : MonoBehaviour
     private Vector3 defaultSpawn = new Vector3(0,0,0);
     private Vector3 newSpawn;
     private Quaternion startRot = Quaternion.Euler(Vector3.zero);
-    private bool allowedToTP = false;
     private GameObject player;
     private CheckpointManager manager;
     public AudioSource deathSound;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Door : MonoBehaviour
 
@@ -10,6 +11,7 @@ public class Door : MonoBehaviour
     private Vector3 TranslateDirection = new Vector3(1f, 0, 0);
     private bool openDoor = false;
     public bool isAutoDoor = true;
+    private bool inputDown;
     private bool playDoorSound = false;
     public int TranslateSpeed = 4;
     public GameObject leftDoor;
@@ -18,10 +20,14 @@ public class Door : MonoBehaviour
     public AudioSource Closing;
     private InteractibleRaycast playerCast;
     private string doorPrompt = "E to open/close door";
+    private TMP_Text InteractPrompt;
     // Start is called before the first frame update
     void Start()
     {
-        playerCast = GameObject.FindObjectOfType<InteractibleRaycast>();
+        //playerCast = GameObject.FindObjectOfType<InteractibleRaycast>();
+        InteractPrompt = GameObject.FindObjectOfType<TMP_Text>();
+        InteractPrompt.text = doorPrompt;
+        InteractPrompt.enabled = false;
         PosLDoor = leftDoor.transform.localPosition;
         PosRDoor = rightDoor.transform.localPosition;
     }
@@ -29,6 +35,11 @@ public class Door : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            inputDown = true;
+        }
+        
         //buttonDoorPrompt();
         openCloseSequence();
         doorSounds();
@@ -45,10 +56,25 @@ public class Door : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        InteractPrompt.enabled = false;
         if (other.gameObject.CompareTag("Player") == true && isAutoDoor == true)
         {
             openDoor = false;
             playDoorSound = true;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player") && isAutoDoor == false)
+        {
+            InteractPrompt.enabled = true;
+            if (inputDown == true)
+            {
+                openDoor = !openDoor;
+                playDoorSound = !playDoorSound;
+                inputDown = false;
+            }
         }
     }
 
