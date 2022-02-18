@@ -5,10 +5,14 @@ using UnityEngine;
 public class TeleporterBrain : MonoBehaviour
 {
     public Transform otherPortal;
+    public AudioSource portalAmbient;
+    public AudioSource warpingSound;
     private Vector3 warpPos;
     // Start is called before the first frame update
     void Start()
     {
+        portalAmbient.loop = true;
+        portalAmbient.playOnAwake = true;
     }
 
     // Update is called once per frame
@@ -30,6 +34,7 @@ public class TeleporterBrain : MonoBehaviour
         
         if (other.gameObject.CompareTag("Player"))
         {
+            warpingSound.Play();
             other.gameObject.GetComponent<CharacterController>().enabled = false;
             other.gameObject.transform.SetPositionAndRotation(warpPos, other.gameObject.transform.rotation);
             other.gameObject.GetComponent<CharacterController>().enabled = true;

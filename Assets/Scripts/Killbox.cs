@@ -11,6 +11,7 @@ public class Killbox : MonoBehaviour
     private bool allowedToTP = false;
     private GameObject player;
     private CheckpointManager manager;
+    public AudioSource deathSound;
 
 
     // enabling-disabling Character Controller is not a hack, Character Controllers *ARE* colliders, and are unaffected by forces.
@@ -48,6 +49,7 @@ public class Killbox : MonoBehaviour
             player.GetComponent<CharacterController>().enabled = false;
             player.transform.SetPositionAndRotation(newSpawn, startRot);
             player.GetComponent<CharacterController>().enabled = true;
+            deathSound.Play();
         }
     }
 }

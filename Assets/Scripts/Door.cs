@@ -10,9 +10,12 @@ public class Door : MonoBehaviour
     private Vector3 TranslateDirection = new Vector3(1f, 0, 0);
     private bool openDoor = false;
     public bool isAutoDoor = true;
+    private bool playDoorSound = false;
     public int TranslateSpeed = 4;
     public GameObject leftDoor;
     public GameObject rightDoor;
+    public AudioSource Opening;
+    public AudioSource Closing;
     private InteractibleRaycast playerCast;
     private string doorPrompt = "E to open/close door";
     // Start is called before the first frame update
@@ -28,6 +31,7 @@ public class Door : MonoBehaviour
     {
         //buttonDoorPrompt();
         openCloseSequence();
+        doorSounds();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,6 +39,7 @@ public class Door : MonoBehaviour
         if (other.gameObject.CompareTag("Player") == true && isAutoDoor == true)
         {
             openDoor = true;
+            playDoorSound = true;
         }
     }
 
@@ -43,6 +48,7 @@ public class Door : MonoBehaviour
         if (other.gameObject.CompareTag("Player") == true && isAutoDoor == true)
         {
             openDoor = false;
+            playDoorSound = true;
         }
     }
 
@@ -63,11 +69,21 @@ public class Door : MonoBehaviour
             {
                 rightDoor.transform.Translate(-TranslateDirection * Time.deltaTime * TranslateSpeed);
             }
+            else
+            {
+                playDoorSound = false;
+            }
+       
 
             if (leftDoor.transform.localPosition.x < PosLDoor.x)
             {
                 leftDoor.transform.Translate(TranslateDirection * Time.deltaTime * TranslateSpeed);
             }
+            else
+            {
+                playDoorSound = false;
+            }
+            
         }
         else
         {
@@ -75,11 +91,35 @@ public class Door : MonoBehaviour
             {
                 rightDoor.transform.Translate(TranslateDirection * Time.deltaTime * TranslateSpeed);
             }
+            else
+            {
+                playDoorSound = false;
+            }
 
             if (leftDoor.transform.localPosition.x > PosLDoor.x - 1)
             {
                 leftDoor.transform.Translate(-TranslateDirection * Time.deltaTime * TranslateSpeed);
             }
+            else
+            {
+                playDoorSound = false;
+            }
+        }
+    }
+
+    private void doorSounds()
+    {
+        if (playDoorSound == false) { return; }
+
+        if (openDoor == false && Closing.isPlaying == false)
+        {
+            Closing.Play();
+            Opening.Stop();
+        }
+        else if (openDoor == true && Opening.isPlaying == false)
+        {
+            Opening.Play();
+            Closing.Stop();
         }
     }
 }

@@ -7,6 +7,8 @@ public class Checkpoint : MonoBehaviour
     private CheckpointManager manager;
     public Material activated;
     public Material inactive;
+    public AudioSource checkpointSound;
+    private bool isActive;
 
     void Start()
     {
@@ -18,6 +20,7 @@ public class Checkpoint : MonoBehaviour
         if (manager.lastCheckpoint != this.transform.position)
         {
             this.GetComponent<Renderer>().material = inactive;
+            isActive = false;
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -26,6 +29,11 @@ public class Checkpoint : MonoBehaviour
         {
             manager.lastCheckpoint = this.transform.position;
             this.GetComponent<Renderer>().material = activated;
+            if (isActive == false)
+            {
+                checkpointSound.Play();
+            }
+            isActive = true;
         }
     }
 }
