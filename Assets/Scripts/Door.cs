@@ -26,13 +26,13 @@ public class Door : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        buttonDoorPrompt();
+        //buttonDoorPrompt();
         openCloseSequence();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && isAutoDoor == true)
+        if (other.gameObject.CompareTag("Player") == true && isAutoDoor == true)
         {
             openDoor = true;
         }
@@ -40,7 +40,7 @@ public class Door : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && isAutoDoor == true)
+        if (other.gameObject.CompareTag("Player") == true && isAutoDoor == true)
         {
             openDoor = false;
         }
