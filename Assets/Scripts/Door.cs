@@ -35,7 +35,7 @@ public class Door : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if(Input.GetButtonDown("Interact"))
         {
             inputDown = true;
         }
