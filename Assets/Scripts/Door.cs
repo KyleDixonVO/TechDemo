@@ -25,7 +25,7 @@ public class Door : MonoBehaviour
     void Start()
     {
         //playerCast = GameObject.FindObjectOfType<InteractibleRaycast>();
-        InteractPrompt = GameObject.FindObjectOfType<TMP_Text>();
+        InteractPrompt = GameObject.Find("UI_Prompts").GetComponent<TMP_Text>();
         InteractPrompt.text = doorPrompt;
         InteractPrompt.enabled = false;
         PosLDoor = leftDoor.transform.localPosition;

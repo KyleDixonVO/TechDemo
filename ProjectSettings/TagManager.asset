@@ -8,6 +8,7 @@ TagManager:
   - Checkpoint
   - CManager
   - Instanced
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX

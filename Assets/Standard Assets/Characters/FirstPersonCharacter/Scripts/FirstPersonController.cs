@@ -21,7 +21,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private MouseLook m_MouseLook;
         [SerializeField] private bool m_UseFovKick;
         [SerializeField] private FOVKick m_FovKick = new FOVKick();
-        [SerializeField] private bool m_UseHeadBob;
+        [SerializeField] public bool m_UseHeadBob;
+        [SerializeField] public bool m_OnMovingPlatform;
+        [SerializeField] public bool m_isDashing;
+        [SerializeField] public int m_maxDashes = 3;
+        [SerializeField] public int m_currentDashes = 3;
+        [SerializeField] public float m_DashMagnitude;
         [SerializeField] private CurveControlledBob m_HeadBob = new CurveControlledBob();
         [SerializeField] private LerpControlledBob m_JumpBob = new LerpControlledBob();
         [SerializeField] private float m_StepInterval;
@@ -109,6 +114,22 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_MoveDir.x = desiredMove.x*speed;
             m_MoveDir.z = desiredMove.z*speed;
 
+            if (m_isDashing && m_currentDashes > 0)
+            {
+                if (desiredMove.x == 0 && desiredMove.y == 0)
+                {
+                    m_MoveDir = transform.forward * m_DashMagnitude;
+                }
+                else
+                {
+                    m_MoveDir.x = desiredMove.x * m_DashMagnitude;
+                    m_MoveDir.z = desiredMove.z * m_DashMagnitude;
+                }
+
+                m_currentDashes--;
+                m_isDashing = false;
+            }
+
             if (m_CharacterController.isGrounded)
             {
                 m_MoveDir.y = -m_StickToGroundForce;
@@ -162,7 +183,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void PlayFootStepAudio()
         {
-            if (!m_CharacterController.isGrounded)
+            if (!m_CharacterController.isGrounded && !m_OnMovingPlatform)
             {
                 return;
             }
@@ -213,6 +234,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // On standalone builds, walk/run speed is modified by a key press.
             // keep track of whether or not the character is walking or running
             m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
+
 #endif
             // set the desired speed to be walking or running
             speed = m_IsWalking ? m_WalkSpeed : m_RunSpeed;
