@@ -8,13 +8,15 @@ public class CastGravWell : MonoBehaviour
     public RaycastHit gravHit;
     public Ray gravCast;
     public Vector3 gravCastPos;
-    public float castDistance = 30;
+    public float castDistance = 10;
     private Vector3 castOrigin;
-    private Transform playerCamTransform;
+    public  Transform playerCamTransform;
     public GameObject gravWell;
     public GameObject gravInstance;
+    public bool summoned;
     void Start()
     {
+        summoned = false;
     }
 
     // Update is called once per frame
@@ -27,25 +29,21 @@ public class CastGravWell : MonoBehaviour
             if (CastWell() == true)
             {
                 Vector3 gravOrigin = new Vector3(gravHit.transform.position.x, gravHit.transform.position.y, gravHit.transform.position.z);
-                gravInstance = Instantiate(gravWell, gravOrigin, Quaternion.identity, this.gameObject.transform);
+                gravInstance = Instantiate(gravWell, gravHit.point, playerCamTransform.rotation, this.gameObject.transform);
             }
             else
             {
                 gravCast = new Ray(new Vector3(playerCamTransform.transform.position.x, playerCamTransform.transform.position.y, playerCamTransform.transform.position.z), playerCamTransform.forward);
-                gravCastPos = gravCast.GetPoint(30);
-                gravInstance = Instantiate(gravWell, new Vector3( gravCastPos.x, gravCastPos.y, gravCastPos.z), Quaternion.identity, this.gameObject.transform);
+                gravCastPos = gravCast.GetPoint(castDistance);
+                gravInstance = Instantiate(gravWell, new Vector3(gravCastPos.x, gravCastPos.y, gravCastPos.z), playerCamTransform.rotation, this.gameObject.transform);
                 Debug.Log("cast in open space");
             }
-        }
-
-        if (gravInstance != null)
-        {
-           
+            summoned = true;
         }
         
         if (Input.GetKeyUp(KeyCode.G))
         {
-            Destroy(gravInstance);
+            summoned = false;
         }
     }
 

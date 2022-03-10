@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1732662098000701030}
   - component: {fileID: 3139236422001939781}
   - component: {fileID: -7383292093716002660}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Meteor
   m_TagString: Instanced
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 3418149569006943795}
   - component: {fileID: 7343239870506648462}
   - component: {fileID: 6634592214199779936}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Particle System
   m_TagString: Instanced
   m_Icon: {fileID: 0}
