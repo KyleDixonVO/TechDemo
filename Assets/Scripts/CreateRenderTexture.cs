@@ -6,22 +6,31 @@ public class CreateRenderTexture : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    
+ 
+    public RenderTexture template;
 
     void Start()
     {
-       RenderTexture textureI = Instantiate(GameObject.Find("PortalTex - i").GetComponent<RenderTexture>());
-       RenderTexture textureO = Instantiate(GameObject.Find("PortalTex - o").GetComponent<RenderTexture>());
-       Material materialO = Instantiate(GameObject.Find("Portal - o").GetComponent<Material>());
-       Material materialI = Instantiate(GameObject.Find("Portal - i").GetComponent<Material>());
-        materialO.mainTexture = textureO;
-        materialI.mainTexture = textureI;
-        Renderer[] renderers = new Renderer[3];
-        renderers= this.gameObject.GetComponentsInChildren<Renderer>();
-        foreach (Renderer renderer in renderers)
-        {
-            Debug.Log(renderer);
-        }
+        var texI = new RenderTexture(template);
+        var texO = new RenderTexture(template);
+        Debug.Log("Portal Pair Children: " + this.transform.childCount);
+        Debug.Log("Portal i Children: " + this.transform.GetChild(0).transform.childCount);
+        Debug.Log("Portal o Children: " + this.transform.GetChild(1).transform.childCount);
+
+        this.transform.GetChild(0).transform.GetChild(0).GetComponent<Renderer>().material.mainTexture = texO;
+        this.transform.GetChild(0).transform.GetChild(0).GetComponent<Renderer>().material.SetTexture("_EmissionMap", texO);
+
+        this.transform.GetChild(0).transform.GetChild(1).GetComponent<Renderer>().material.mainTexture = texO;
+        this.transform.GetChild(0).transform.GetChild(1).GetComponent<Renderer>().material.SetTexture("_EmissionMap", texO);
+        this.transform.GetChild(0).transform.GetChild(2).GetComponent<Camera>().targetTexture = texI;
+
+        this.transform.GetChild(1).transform.GetChild(0).GetComponent<Renderer>().material.mainTexture = texI;
+        this.transform.GetChild(1).transform.GetChild(0).GetComponent<Renderer>().material.SetTexture("_EmissionMap", texI);
+
+        this.transform.GetChild(1).transform.GetChild(1).GetComponent<Renderer>().material.mainTexture = texI;
+        this.transform.GetChild(1).transform.GetChild(1).GetComponent<Renderer>().material.SetTexture("_EmissionMap", texI);
+        this.transform.GetChild(1).transform.GetChild(2).GetComponent<Camera>().targetTexture = texO;
+
     }
 
     // Update is called once per frame
