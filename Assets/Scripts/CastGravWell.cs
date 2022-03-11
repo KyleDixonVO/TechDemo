@@ -5,6 +5,8 @@ using UnityEngine;
 public class CastGravWell : MonoBehaviour
 {
     // Start is called before the first frame update
+    public AudioSource Spawn;
+    public AudioSource Despawn;
     public RaycastHit gravHit;
     public Ray gravCast;
     public Vector3 gravCastPos;
@@ -26,6 +28,7 @@ public class CastGravWell : MonoBehaviour
         castOrigin = new Vector3(playerCamTransform.position.x, playerCamTransform.position.y, playerCamTransform.position.z);
         if (Input.GetKeyDown(KeyCode.G))
         {
+            Spawn.Play();
             if (CastWell() == true)
             {
                 Vector3 gravOrigin = new Vector3(gravHit.transform.position.x, gravHit.transform.position.y, gravHit.transform.position.z);
@@ -43,6 +46,7 @@ public class CastGravWell : MonoBehaviour
         
         if (Input.GetKeyUp(KeyCode.G))
         {
+            Despawn.Play();
             summoned = false;
         }
     }

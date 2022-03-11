@@ -8,16 +8,20 @@ public class GravWell : MonoBehaviour
     private bool MoveCloser;
     private bool MoveFurther;
     private CastGravWell caster;
+    public AudioSource disturbance;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("FPSController");
         caster = GameObject.Find("FPSController").GetComponent<CastGravWell>();
+        disturbance.Play();
     }
 
     // Update is called once per frame
     void Update()
     {
+        player = GameObject.Find("FPSController");
+        caster = GameObject.Find("FPSController").GetComponent<CastGravWell>();
         if (caster.summoned == false)
         {
             Physics.autoSyncTransforms = false;
@@ -35,15 +39,15 @@ public class GravWell : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        if (Input.GetKey(KeyCode.Mouse0))
-        {
-            MoveCloser = true;
+        //if (Input.GetKey(KeyCode.Mouse0))
+        //{
+        //    MoveCloser = true;
 
-        }
-        else
-        {
-            MoveCloser = false;
-        }
+        //}
+        //else
+        //{
+        //    MoveCloser = false;
+        //}
 
         if (Input.GetKey(KeyCode.Mouse1))
         {
@@ -63,8 +67,8 @@ public class GravWell : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MoveWellCloser();
-        //MoveWellFurther();
+        //MoveWellCloser();
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -86,32 +90,7 @@ public class GravWell : MonoBehaviour
     {
         if (MoveCloser == true)
         {
-            if (this.transform.position.x > player.transform.position.x + 5)
-            {
-                this.transform.Translate(new Vector3(-1 * Time.deltaTime, 0, 0));
-            }
-            else if (this.transform.position.x < player.transform.position.x - 5)
-            {
-                this.transform.Translate(new Vector3(1 * Time.deltaTime, 0, 0));
-            }
-
-            if (this.transform.position.y > player.transform.position.y)
-            {
-                this.transform.Translate(new Vector3(0, -1 * Time.deltaTime, 0));
-            }
-            else if (this.transform.position.y < player.transform.position.y)
-            {
-                this.transform.Translate(new Vector3(0, 1 * Time.deltaTime, 0));
-            }
-
-            if (this.transform.position.z > player.transform.position.z + 5)
-            {
-                this.transform.Translate(new Vector3(0, 0, -1 * Time.deltaTime));
-            }
-            else if (this.transform.position.z < player.transform.position.z - 5)
-            {
-                this.transform.Translate(new Vector3(0, 0, 1 * Time.deltaTime));
-            }
+            this.transform.Translate(-caster.playerCamTransform.forward);
         }
     }
 }

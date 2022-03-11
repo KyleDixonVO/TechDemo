@@ -5,3 +5,8 @@
 "Sci-Fi sliding door (height adjustible chair sounds)" - Pablobd, https://freesound.org/people/Pablobd/sounds/525032/
 "Game SFX >> Player Death" - luminousfridge, https://freesound.org/people/luminousfridge/sounds/409343/
 "Collect Crystal" - axilirate, https://freesound.org/people/axilirate/sounds/592346/ --> modified into CollectibleShortened.wav
+"ambient-portal-hum-once-upon-a-time-in-the-1970s" - shiversmedia, https://freesound.org/people/shiversmedia/sounds/254131/
+"Mage FireBall Skill" - EminYILDIRIM, https://freesound.org/people/EminYILDIRIM/sounds/555519/ --> modified into Dash.Wav
+"Big Scary Portal Open" - Eponn, https://freesound.org/people/Eponn/sounds/617761/
+"Big Scary Portal 2" - Eponn, https://freesound.org/people/Eponn/sounds/617762/
+"RRMX FIRE MEDIUM 1" - Skyclan47, https://freesound.org/people/skyklan47/sounds/193470/ --> modified into FireLoop.Wav

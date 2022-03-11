@@ -9,8 +9,9 @@ using TMPro;
     {
         UnityStandardAssets.Characters.FirstPerson.FirstPersonController playerController;
         private TMP_Text dashCounter;
-        private float dashCooldown = 2.0f;
+        public float dashCooldown = 2.0f;
         private float countdown;
+        public AudioSource dash;
         // Start is called before the first frame update
         void Start()
         {
@@ -25,6 +26,7 @@ using TMPro;
             {
                 playerController.m_isDashing = true;
                 countdown = Time.time;
+                dash.Play();
             }
 
             if (playerController.m_currentDashes < playerController.m_maxDashes && (Time.time >= countdown + dashCooldown))
