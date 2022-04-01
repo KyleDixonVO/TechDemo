@@ -52,12 +52,25 @@ public class Door : MonoBehaviour
             openDoor = true;
             playDoorSound = true;
         }
+        else if (other.gameObject.CompareTag("Bot") == true && isAutoDoor == true)
+        {
+            openDoor = true;
+            playDoorSound = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        InteractPrompt.enabled = false;
-        if (other.gameObject.CompareTag("Player") == true && isAutoDoor == true)
+        if (other.gameObject.CompareTag("Player") == true)
+        {
+            InteractPrompt.enabled = false;
+        }
+        if ((other.gameObject.CompareTag("Player") == true) && isAutoDoor == true)
+        {
+            openDoor = false;
+            playDoorSound = true;
+        }
+        else if (other.gameObject.CompareTag("Bot") == true && isAutoDoor == true)
         {
             openDoor = false;
             playDoorSound = true;
