@@ -7,11 +7,11 @@ public class BotPathfinding : MonoBehaviour
 {
     public enum botStates
     {
-        patrolling = 0,
-        searching = 1,
-        chasing = 2,
-        attacking = 3,
-        retreating = 4
+        patrolling,
+        searching,
+        chasing,
+        attacking,
+        retreating
     }
 
     public LayerMask botMask;
